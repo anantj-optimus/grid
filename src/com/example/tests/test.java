@@ -39,7 +39,7 @@ public class test {
       }
       
    @Test
-  public void testJavaScript() throws Exception {
+  public void testJavaScript1() throws Exception {
     driver.get(baseUrl + "/");
     driver.findElement(By.linkText("Features ")).click();
       }
