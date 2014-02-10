@@ -1,0 +1,5 @@
+<testsuite tests="1">
+    <testcase classname="test" name="gridtest"/>
+        <failure type="NotEnoughinfo"> details about failure </failure>
+    </testcase>
+</testsuite>
