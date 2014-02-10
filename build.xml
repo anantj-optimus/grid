@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<project basedir="." default="run" name="Grid">
+    
+
+    <property name="src.dir"          value="src"/>
+    <property name="bin.dir"          value="bin"/>
+    <property name="build.dir"        value="build"/>
+    <property name="jar.target.dir"   value="${build.dir}/jars"/>
+    <property name="external.lib.dir" value="libs"/>
+	<property name="reports" 		  location="reports" />
+    <property name="main.class"       value="com.example.tests.test"/>
+
+    <path id="project.classpath">
+<pathelement location="${classes}" />
+  <pathelement location="${external.lib.dir}/junit-4.11.jar" />
+  <pathelement location="${external.lib.dir}/ant-junit4.jar" />
+        <fileset dir="${external.lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+        <fileset dir="${build.dir}">
+        </fileset>
+    </path>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+        <delete dir="${jar.target.dir}"/>
+    </target>
+
+    <target name="init" depends="clean">
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${jar.target.dir}"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac includeantruntime="false" destdir="${build.dir}" srcdir="${src.dir}">
+            <classpath refid="project.classpath"/>	    
+        </javac>
+    </target>
+
+    <target name="jar" depends="compile">
+		<jar destfile="${jar.target.dir}\Grid.jar" basedir="${build.dir}">
+	<zipgroupfileset includes="*.jar" dir="libs"/>
+            <manifest>
+                <attribute name="Main-Class" value="com.example.tests.TestRunner" />
+            </manifest>
+        </jar>
+    </target>
+	
+    
+    <target name="run" depends="jar">
+        <!--java jar="${jar.target.dir}\Grid.jar" fork="true"/-->
+			<junit>
+			<!-- printsummary="yes" haltonfailure="yes" showoutput="yes"/-->
+				<classpath refid="project.classpath" />
+				<formatter type="plain" usefile="false" /> <!-- to screen -->
+				<formatter type="plain" /> <!-- to file -->
+				<formatter type="xml"/>
+				<test name="com.example.tests.test" todir="${reports}"/>
+			</junit>
+			
+			
+		
+		 <junitreport todir="${reports}">
+			<fileset dir="${reports}">
+                <include name="TEST-*.xml" />
+            </fileset>
+			<report format="noframes" todir="${reports}\html\" />
+			
+        </junitreport>
+		
+    </target>
+	
+
+	
+    
+</project>
