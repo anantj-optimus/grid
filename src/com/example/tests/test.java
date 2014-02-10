@@ -37,6 +37,12 @@ public class test {
     driver.get(baseUrl + "/");
     driver.findElement(By.linkText("Features")).click();
       }
+      
+   @Test
+  public void testJavaScript() throws Exception {
+    driver.get(baseUrl + "/");
+    driver.findElement(By.linkText("Features ")).click();
+      }
 
   @After
   public void tearDown() throws Exception {
